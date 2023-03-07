@@ -1,0 +1,46 @@
+/* 1 часть */
+.authorization {
+    width: 100%;
+    height: auto;
+    background-color: aquamarine;
+    margin: 0px;
+    top: 0px;
+
+}
+
+.name {
+    text-align: center;
+}
+
+#btn_auth {
+    background: #5d8ab1;
+    color: #fff;
+    padding: 1rem 1.5rem;
+    text-decoration: none;
+    border-radius: 3px;
+    border: none;
+}
+
+/* начало 2 части */
+.catalog {
+    width: 100%;
+    height: auto;
+    background-color: blue;
+    margin: 0px;
+    top: 0px;
+
+}
+
+.slogan {
+    left: 40px;
+}
+
+
+.page {
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+
