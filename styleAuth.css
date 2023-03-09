@@ -63,7 +63,19 @@ input:focus {
     width: 40%;
     margin: 100px auto;
     border-radius: 10px;
-    height: 35px;
+    height: 30px;
     border: none;
     cursor: pointer;
+}
+
+#reg{
+  text-align: center;
+  color: #000000;
+  font-size: 20px;
+  padding-bottom: 5px;
+}
+
+
+a:hover{
+  color: white;
 }

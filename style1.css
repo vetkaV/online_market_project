@@ -16,7 +16,9 @@ body {
     align-content: center;
     text-align: center;
 }
-
+.authorization button:hover{
+    background-color: #4074a1;
+}
 .name {
     width: 70%;
     height: 100px;

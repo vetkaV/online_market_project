@@ -7,18 +7,25 @@ def get_auth():
     return get_succes_auth(str(login), str(pass_w))
 def index():
     if request.method == "POST":
+        print(request.form.get('btn_cap'))
+        if str(request.form.get('btn_cap')) == '1':
+            return render_template('catalog.html') 
+    return render_template('main.html')
+
+def auth():
+    if request.method == "POST":
         if get_auth(): 
             return redirect(url_for('main'))
 
     return render_template('authorization.html')
 
-def main():
-    return render_template('main.html')
-
+def catalog():
+    return render_template('catalog.html')    
 folder = os.getcwd()
 app = Flask(__name__, template_folder=folder, static_folder=folder)  
 app.add_url_rule('/', 'index', index, methods=['post', 'get'])
-app.add_url_rule('/main', 'main', main, methods=['post', 'get'])
+app.add_url_rule('/auth', 'auth', auth, methods=['post', 'get'])
+app.add_url_rule('/catalog', 'catalog', catalog, methods=['post', 'get'])
 
 if __name__ == "__main__":
     # Запускаем веб-сервер:
