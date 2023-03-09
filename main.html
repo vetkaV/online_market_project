@@ -1,33 +1,57 @@
 <!DOCTYPE html>
 <html>
 
-    <link rel="stylesheet" href="style1.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style1.css')}}">
 
 <body>
     <div class="page">
         <div class="authorization">
             <p class="name">NSTU auto center</p>
+            <img src="https://logos-download.com/wp-content/uploads/2021/01/Novosibirsk_State_Technical_University_Logo-2048x834.png" class="" style="width: 256px; height: 104px;">
             <form action="/market.html">
             <button type="button" id="btn_auth">Войти</button>
             </form>
         </div>
             
         <div class="catalog">
-            <p>Выбери автомобиль под себя</p>
+            <p class="remark">Выбери автомобиль под себя:</p>
             <div class="catalog_block">
                 <div class="block">
-                <p class="typename">gfdg</p>
+                <p class="typename">Седан</p>
                 <img href="https://pokatim.ru/uploads/posts/2019-12/1575357511_vyrvueor.jpg" class="" style="width: 100px; height: 100px;">
                 <p>Цена</p>
                 <form>
                 <button type="submit" id="btn_bought">Купить</button>
                 </form>
                 </div>
+                
+                <div class="block">
+                    <p class="typename">Кроссовер</p>
+                    <img href="https://pokatim.ru/uploads/posts/2019-12/1575357511_vyrvueor.jpg" class="" style="width: 100px; height: 100px;">
+                    <p>Цена</p>
+                    <form>
+                    <button type="submit" id="btn_bought">Купить</button>
+                    </form>
+                </div>
+
+                <div class="block">
+                    <p class="typename">Джип</p>
+                    <img href="https://pokatim.ru/uploads/posts/2019-12/1575357511_vyrvueor.jpg" class="" style="width: 100px; height: 100px;">
+                    <p>Цена</p>
+                    <form>
+                    <button type="submit" id="btn_bought">Купить</button>
+                    </form>
+                </div>
+
+                
+
             </div>
         </div>
 
         <div class="contacts">
-            <p class="">Контакты</p>
+            <p class="communicate">Контакты</p>
+            <img src="https://logos-download.com/wp-content/uploads/2021/01/Novosibirsk_State_Technical_University_Logo-2048x834.png" class="" style="width: 256px; height: 128px; align-content: right;">
+            
         </div>
     </div>
 </body>
