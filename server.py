@@ -3,7 +3,7 @@ import os
 
 
 def index():
-    return render_template('authorization.html')
+    return render_template('detail.html')
 
 
 
