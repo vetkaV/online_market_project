@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styleProfile.css">
 
     
 </head>
@@ -10,27 +10,41 @@
 <body>
     
     <div class="root">
-        <div>
-            <a href="/Catalog.html">Catalog</a>
-            
-            <a href="Тип выход с пользователя">Logout</a>
-            
+        <div class="user_info">
             <p class="">Пользователь: username</p>
             <p class="">Email: почта</p>
             <p class="">Phone: телефон</p>
+            <hr>
 
+            <form action="/profile" class="change_info">
+                <input type="email" name="change_email" placeholder="Email" required>
+                <input type="number" name="change_phone" placeholder="Phone" required>
+            </form>
         </div>
 
         <div class="basket">
 
-            <div id="block">
-                <p class="i">Название</p>
-                <img src="" alt="КАРТИНОЧКА" style="width: 50%; height: 50%;">
-                <p class="i">Цена</p>
-                <img src="" alt="УРНА" style="width: 50%; height: 50%;">
+            <div class="item_block">
+                <div class="img_block">
+                    <img src="https://logos-download.com/wp-content/uploads/2020/06/Kaspersky_Anti-Virus_Logo_old.png" alt="КАРТИНОЧКА">
+                </div>
+                <div class="info_block">
+                    <p class="i">Название</p>
+                    <p class="i">Цена</p>
+                    <img src="" alt="УРНА" style="width: 50%; height: 50%;">
+                </div>
             </div>
 
-            
+            <div class="item_block">
+                <div class="img_block">
+                    <img src="https://logos-download.com/wp-content/uploads/2020/06/Kaspersky_Anti-Virus_Logo_old.png" alt="КАРТИНОЧКА">
+                </div>
+                <div class="info_block">
+                    <p class="i">Название</p>
+                    <p class="i">Цена</p>
+                    <img src="" alt="УРНА" style="width: 50%; height: 50%;">
+                </div>
+            </div>
         </div>
     </div>
 </body>
