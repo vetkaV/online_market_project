@@ -3,22 +3,39 @@
 
 <head>
     <link rel="stylesheet" href="styleProfile.css">
+    <link rel="stylesheet" href="styleDetail.css">
 
-    
 </head>
 
 <body>
-    
+    <header class="head_block">
+        <div class="return_btn">
+            <img id="back_btn" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Back_Arrow.svg/1024px-Back_Arrow.svg.png">
+        </div>
+
+        <div class="user_block">
+            <form action="/detail" method="post">
+                <input type="submit" name="auth_text" value="USER">
+            </form>
+
+        </div>
+    </header>
     <div class="root">
+
         <div class="user_info">
             <p class="">Пользователь: username</p>
             <p class="">Email: почта</p>
             <p class="">Phone: телефон</p>
+            <p class="">Имя:</p>
+            <p class="">Фамилия:</p>
+            <p class="">Адрес:</p>
             <hr>
 
             <form action="/profile" class="change_info">
-                <input type="email" name="change_email" placeholder="Email" required>
-                <input type="number" name="change_phone" placeholder="Phone" required>
+                <input type="string" name="name_user" placeholder="Имя" required>
+                <input type="string" name="surname_user" placeholder="Фамилия" required>
+                <input type="string" name="address_user" placeholder="Адрес" required>
+                <input type="submit" value="Сохранить" id="save_btn">
             </form>
         </div>
 
