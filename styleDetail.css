@@ -19,7 +19,7 @@ body {
     align-items: end;
     justify-content: end;
     padding: 0;
-    background-color: rgba(240, 231, 232, 0.2);
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
 .root {
@@ -63,13 +63,15 @@ body {
     height: 50px;
     font-size: 20px;
     border: 0;
-    background-color: rgba(255, 255, 255, 0.3);
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7);
     
 }
 
 .user_block input:hover{
-    color: white;
-    border: 1px white solid;
+    color: rgb(77, 122, 4);
+    border: 2px rgb(77, 122, 4) solid;
+    
 }
 .detail_for_block {
     width: 300px;

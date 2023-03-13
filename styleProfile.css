@@ -48,7 +48,7 @@ body {
     margin-top: 10px;
     width: 90%;
     height: auto;
-    border: 2px white solid;
+    border: 2px rgb(77, 122, 4) solid;
     margin-left: auto;
     margin-right: auto;
 }
@@ -83,14 +83,33 @@ body {
     font-size: 20px;
     margin: 5px;
     border-radius: 10px;
+    border: 1px rgb(77, 122, 4) solid;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
 }
-
+change_info input:active{
+    border: 2px rgb(77, 122, 4) solid;
+}
 #save_btn {
     width: 30%;
     margin-left: 35%;
 }
-
-.avatar_img {
-    width: 50px;
-    height: 50px;
+#save_btn:hover{
+    background-color: rgb(77, 122, 4);
+    border: 1px rgb(0, 0, 0) solid;
+}
+.avatar_image {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 20px;
+    width: 250px;
+    height: 250px;
+}
+.avatar_image img {
+    width: 250px;
+    height: 250px;
+}
+.info_user_block{
+    
+    display: flex;
 }
