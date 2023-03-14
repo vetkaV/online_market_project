@@ -4,6 +4,8 @@
 <head>
     <link rel="stylesheet" href="styleProfile.css">
     <link rel="stylesheet" href="styleDetail.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleDetail.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleProfile.css')}}">
 
 </head>
 
@@ -15,7 +17,7 @@
 
         <div class="user_block">
             <form action="/detail" method="post">
-                <input type="submit" name="auth_text" value="USER">
+                <input type="submit" name="auth_text" value="{{username}}">
             </form>
 
         </div>
@@ -29,22 +31,22 @@
                 </div>
 
                 <div class="info">
-                    <p class="">Пользователь: username</p>
-                    <p class="">Email: почта</p>
-                    <p class="">Phone: телефон</p>
-                    <p class="">Имя:</p>
-                    <p class="">Фамилия:</p>
-                    <p class="">Адрес:</p>
+                    <p class="">Пользователь: {{username}}</p>
+                    <p class="">Email: {{email}}</p>
+                    <p class="">Phone: {{phone}}</p>
+                    <p class="">Имя: {{name}}</p>
+                    <p class="">Фамилия: {{surname}}</p>
+                    <p class="">Адрес: {{address}}</p>
                 </div>
             </div>
 
             <hr>
             <div class="form">
-                <form action="/profile" class="change_info">
+                <form action="/profile" class="change_info" method="post">
                     <input type="string" name="name_user" placeholder="Имя" required>
                     <input type="string" name="surname_user" placeholder="Фамилия" required>
                     <input type="string" name="address_user" placeholder="Адрес" required>
-                    <input type="submit" value="Сохранить" id="save_btn">
+                    <input type="submit" value="Сохранить" id="save_btn" name="save_change">
                 </form>
             </div>
 
