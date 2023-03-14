@@ -1,0 +1,115 @@
+body,
+html {
+    margin: 0;
+    height: 100%;
+}
+
+body {
+    background-image: url(https://img5.goodfon.ru/original/1920x1080/3/e0/markus-spiske-temporausch-by-markus-spiske-temporausch-mar-1.jpg);
+    background-size: cover;
+    padding: auto;
+    align-content: center;
+    height: 100%;
+    margin: 0;
+}
+
+.root {
+    display: flex;
+    justify-content: space-around;
+}
+
+.basket {
+    color: white;
+    height: auto;
+    margin: 10px;
+    text-align: center;
+    width: 50%;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    display: block;
+    justify-content: center;
+    align-content: center;
+}
+
+.user_info {
+    text-align: start;
+    color: white;
+    font-size: 20px;
+    height: 500px;
+    margin: 10px;
+    padding-left: 5%;
+    width: 50%;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+}
+
+.item_block {
+    display: flex;
+    margin-top: 10px;
+    width: 90%;
+    height: auto;
+    border: 2px rgb(77, 122, 4) solid;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.img_block {
+    width: auto;
+    height: auto;
+}
+
+.img_block img {
+    margin: 5px 5px;
+    width: 100px;
+    height: 100px;
+}
+
+.info_block {
+    width: 100%;
+    height: auto;
+    text-align: center;
+}
+
+.change_info {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    align-items: center;
+}
+
+.change_info input {
+    width: 100%;
+    font-size: 20px;
+    margin: 5px;
+    border-radius: 10px;
+    border: 1px rgb(77, 122, 4) solid;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+change_info input:active{
+    border: 2px rgb(77, 122, 4) solid;
+}
+#save_btn {
+    width: 30%;
+    margin-left: 35%;
+}
+#save_btn:hover{
+    background-color: rgb(77, 122, 4);
+    border: 1px rgb(0, 0, 0) solid;
+}
+.avatar_image {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 20px;
+    width: 250px;
+    height: 250px;
+}
+.avatar_image img {
+    width: 250px;
+    height: 250px;
+}
+.info_user_block{
+    
+    display: flex;
+}
