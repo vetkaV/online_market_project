@@ -21,9 +21,10 @@ def do(query):
 def create():
     open()
     cursor.execute('''PRAGMA foreign_keys=on''')
-    do ("DROP table users")
-    do ("DROP table category_product")
-    do ("DROP table products")
+    #do ("DROP table users")
+    #do ("DROP table products")
+    #do ("DROP table category_product")
+    #do ("DROP table photos")
     do('''CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY not null, 
             login VARCHAR not null,
@@ -58,6 +59,15 @@ def create():
     FOREIGN KEY (category) REFERENCES category_product (id)
     )''')
 
+
+    do('''CREATE TABLE IF NOT EXISTS photos(
+    id_product INTEGER NOT NULL,
+    photo_link INTEGER NOT NULL,
+    FOREIGN KEY (id_product) REFERENCES products (id)
+    )
+    ''')
+
+
     info = [
         ('TP-LINK SafeStream ER605', 5299, 1, 'Межсетевой экран TP-LINK SafeStream ER605 открывает безопасный доступ в интернет для корпоративных и домашних нужд. Контроль и управление устройством осуществляется через мобильное приложение.'),
         ('ZYXEL USG FLEX 200', 77800 , 1, 'Для эффективной и безопасной работы каждого компьютера и всей системы в офисах необходимо использование межсетевого экрана ZYXEL USG FLEX 200. Модель выступает в качестве пограничного антивируса, детектора атак, контент- и спам-фильтра и контроллера точек доступа с «бесшовным» подключением к сети через шлюз.'),
@@ -69,6 +79,7 @@ def create():
         ('Cisco 9300-48P-E',1045500,2, 'Сетевой коммутатор — устройство, предназначенное для соединения нескольких узлов компьютерной сети в пределах одного или нескольких сегментов сети.'),
         (' D-link DGS-1210-20/ME', 13600, 2, 'Сетевой коммутатор — устройство, предназначенное для соединения нескольких узлов компьютерной сети в пределах одного или нескольких сегментов сети.'),
         ('DAHUA DH-PFS4212-8GT-96', 24390, 2, 'Сетевой коммутатор — устройство, предназначенное для соединения нескольких узлов компьютерной сети в пределах одного или нескольких сегментов сети.'),
+        ('TP-LINK LS1005G', 800, 2, 'Сетевой коммутатор — устройство, предназначенное для соединения нескольких узлов компьютерной сети в пределах одного или нескольких сегментов сети.'),
         ('TP-LINK TL-SG108E', 2750, 2, 'Сетевой коммутатор — устройство, предназначенное для соединения нескольких узлов компьютерной сети в пределах одного или нескольких сегментов сети.'),
         ('MikroTik CRS326-24G-2S+RM', 26690, 2, 'Сетевой коммутатор — устройство, предназначенное для соединения нескольких узлов компьютерной сети в пределах одного или нескольких сегментов сети.'),
         ('Mercusys MS105G', 930, 2, 'Сетевой коммутатор — устройство, предназначенное для соединения нескольких узлов компьютерной сети в пределах одного или нескольких сегментов сети.'),
@@ -80,13 +91,43 @@ def create():
         ('Xiaomi Mi AIoT Router AX3600', 18300, 3, 'Маршрутизатор, роутер — специализированное устройство, которое пересылает пакеты между различными сегментами сети на основе правил и таблиц маршрутизации. Маршрутизатор может связывать разнородные сети различных архитектур.'),
         ('ViPNet TIAS', 503500, 4, 'ViPNet TIAS (Threat Intelligence Analytics System) — программно-аппаратный комплекс, предназначенный для автоматического выявления инцидентов на основе анализа событий информационной безопасности.'),
         ('MaxPatrol SIEM', 2600500, 4, 'MaxPatrol Security Information and Event Management дает полную видимость IT-инфраструктуры и выявляет инциденты информационной безопасности. Он постоянно пополняется знаниями экспертов Positive Technologies о способах детектирования актуальных угроз иадаптируется кизменениям взащищаемой сети.'),
-        ('SIEM «КОМРАД»', 1700000, 4, 'KOMRAD Enterprise SIEM позволяет осуществлять централизованный сбор событий ИБ, выявлять инциденты ИБ и оперативно на них реагировать. Применение комплекса позволяет эффективно выполнять требования, предъявляемые регуляторами к защите персональных данных, к обеспечению безопасности государственных информационных систем и контролю критической информационной инфраструктуры предприятия.'),
+        ('SIEM Комрад', 1700000, 4, ' '),
         ('Solar Dozor', 350000, 5, 'Система предотвращения утечек информации (DLP). Блокирует передачу конфиденциальных документов, помогает выявлять признаки корпоративного мошенничества, позволяет заниматься профилактикой инцидентов безопасности.'),
         ('McAfee Total Protection for Data Loss Prevention', 250000, 5, 'McAfee Total Protection for Data Loss Prevention (DLP)— это программный комплекс, который обеспечивает надежную защиту конфиденциальной информации, независимо от места ее использования и хранения.McAfeeDLPзащищает данные, хранящиеся, как на конечных точках, так и на «облаке».'),
         ('Forcepoint DLP', 150000, 5, 'ПродуктForcepoint DLP является программным средством по контролю над вероятными утечками корпоративных данных на конечных устройствах/рабочих местах. Применяется для защиты информации, включая совместно обрабатываемые проекты. Система включает контроль контента по определенным маркерам, включая учет совокупно передаваемых данных.')
     ]
 
+    photos = [
+        (1, '/photo/TP-LINK SafeStream ER605.png'),
+        (2, '/photo/ZYXEL USG FLEX 200.png'),
+        (3, '/photo/ZYXEL USG FLEX 2'),
+        (4, '/photo/Zyxel ATP100W.png'),
+        (5, '/photo/Cisco Firepower 2110 NGFW.png'),
+        (6, '/photo/Huawei USG6635E.png'),
+        (7, '/photo/Eltex MES2324FB.png'),
+        (8, '/photo/Cisco 9300-48P-E.png'),
+        (9, ' /photo/D-link DGS-1210-20ME.png'),
+        (10, '/photo/DAHUA DH-PFS4212-8GT-96.png'),
+        (11, '/photo/TP-LINK LS1005G.png'),
+        ('12', '/photo/TP-LINK TL-SG108E.png'),
+        ('13', '/photo/MikroTik CRS326-24G-2S+RM.png'),
+        ('14', '/photo/Mercusys MS105G.png'),
+        ('15', '/photo/Planet GSD-908HP.png'),
+        ('16', '/photo/D-Link DIR-X1530.png'),
+        ('17', '/photo/D-Link DIR-825 R1A.png'),
+        ('18', '/photo/TP-Link Archer C5.png'),
+        ('19', '/photo/Xiaomi Mi Router 4C.png'),
+        ('20', '/photo/Xiaomi Mi AIoT Router AX3600.png'),
+        ('21', '/photo/ViPNet TIAS.png'),
+        ('22', '/photo/MaxPatrol SIEM.png'),
+        ('23', '/photo/SIEM Комрад.png'),
+        ('24', '/photo/Solar Dozor.png'),
+        ('25', '/photo/McAfee Total Protection for Data Loss Prevention.png'),
+        ('26', '/photo/Forcepoint DLP.png')
+    ]
     cursor.executemany('''INSERT into products (name, price, category, desription) VALUES ((?), (?), (?), (?))''', info)
+    conn.commit()
+    cursor.executemany('''INSERT into photos (id_product, photo_link) VALUES ((?), (?))''', photos)
     conn.commit()
 
 def get_succes_auth(login, pass_w):
@@ -138,6 +179,14 @@ def update_user_info(name, surname, address, login):
     conn.commit()
     print('succesful')
     close()
+
+def get_content():
+    open()
+    cursor.execute('select products.id, products.name, products.price, photos.photo_link from products join photos ON products.id = photos.id_product')
+    result = cursor.fetchall()
+    conn.commit()
+    close()
+    return result
 
 def main():
     #pass

@@ -1,6 +1,6 @@
 from flask import Flask, session, request, redirect, url_for, render_template
 import os
-from startSqlite import get_succes_auth, create_user, select_all, update_user_info
+from startSqlite import get_succes_auth, create_user, select_all, update_user_info,get_content
 from users import User
 
 
@@ -30,7 +30,9 @@ def auth():
     return render_template('authorization.html')
 
 def catalog():
-    return render_template('catalog.html')    
+    session['content']=get_content()
+    print(session['content'])
+    return render_template('detail.html', content_list = session['content'])    
 
 def reg():
     result = True
@@ -44,7 +46,9 @@ def reg():
     
 
 def detail():
-    return render_template("detail.html")
+    content=get_content()
+    
+    return render_template('detail.html', content_list = content)
 
 def profile():
     if request.method == "GET":
@@ -67,9 +71,9 @@ def profile():
                              session['profile_info'][1])
             return redirect(url_for('profile'))
     return render_template('profile.html')    
+
+
 folder = os.getcwd()
-
-
 app = Flask(__name__, template_folder=folder, static_folder=folder)  
 app.add_url_rule('/', 'index', index, methods=['post', 'get'])
 app.add_url_rule('/auth', 'auth', auth, methods=['post', 'get'])
