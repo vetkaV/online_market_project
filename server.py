@@ -47,20 +47,37 @@ def reg():
 
 def detail():
     content=get_content()
-    
-    return render_template('detail.html', content_list = content)
+    try:
+        if request.method == "POST":
+            
+            if request.form.get('auth_text') == "Войти":
+                return redirect(url_for('auth'))
+            else:
+                return redirect(url_for('profile'))
+            
+        if request.method == "GET":
+            query = request.args.get('id_product')
+            print(query)
+        return render_template('detail.html', content_list = content, login = session['login'])
+    except:
+        session['login'] = None
+        return render_template('detail.html', content_list = content, login = session['login'])
 
 def profile():
     if request.method == "GET":
-        if session['login'] != None:
-            session["profile_info"] = select_all(session['login'])
-            return render_template('profile.html', username = session['profile_info'][1], 
-                                                    email = session['profile_info'][3], 
-                                                    phone = session['profile_info'][4],
-                                                    name = session['profile_info'][5],
-                                                    surname = session['profile_info'][6],
-                                                    address = session['profile_info'][7])
-        else: return redirect(url_for('auth'))
+        try:
+            if session['login'] != None:
+                session["profile_info"] = select_all(session['login'])
+                return render_template('profile.html', username = session['profile_info'][1], 
+                                                        email = session['profile_info'][3], 
+                                                        phone = session['profile_info'][4],
+                                                        name = session['profile_info'][5],
+                                                        surname = session['profile_info'][6],
+                                                        address = session['profile_info'][7])
+            else: return redirect(url_for('auth'))
+        except:
+            session['login'] = None
+            return redirect(url_for('auth'))
 
     if request.method == "POST":
         if request.form.get('save_change') == 'Сохранить':

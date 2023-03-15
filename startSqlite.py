@@ -4,20 +4,20 @@ db_name = 'usersInfo.sqlite'
 
 conn=None
 cursor=None
-
+#Функция создающая соединение к базе данных
 def open():
     global conn, cursor
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
-
+#функция закрывабщая соединение
 def close():
     cursor.close()
     conn.close()
-
+#функция выполняющая запрос
 def do(query):
     cursor.execute(query)
     conn.commit()
-
+#Фцнкция для первичной настройки базы данных, создания всех таблиц
 def create():
     open()
     cursor.execute('''PRAGMA foreign_keys=on''')
@@ -100,13 +100,13 @@ def create():
     photos = [
         (1, '/photo/TP-LINK SafeStream ER605.png'),
         (2, '/photo/ZYXEL USG FLEX 200.png'),
-        (3, '/photo/ZYXEL USG FLEX 2'),
+        (3, '/photo/ZYXEL USG FLEX 2.png'),
         (4, '/photo/Zyxel ATP100W.png'),
         (5, '/photo/Cisco Firepower 2110 NGFW.png'),
         (6, '/photo/Huawei USG6635E.png'),
         (7, '/photo/Eltex MES2324FB.png'),
         (8, '/photo/Cisco 9300-48P-E.png'),
-        (9, ' /photo/D-link DGS-1210-20ME.png'),
+        (9, ' /photo/D-LINK DGS.png'),
         (10, '/photo/DAHUA DH-PFS4212-8GT-96.png'),
         (11, '/photo/TP-LINK LS1005G.png'),
         ('12', '/photo/TP-LINK TL-SG108E.png'),
@@ -130,6 +130,7 @@ def create():
     cursor.executemany('''INSERT into photos (id_product, photo_link) VALUES ((?), (?))''', photos)
     conn.commit()
 
+#функция проверяющая наличие логина и проверяющая на правильность введенные данных при авторизации
 def get_succes_auth(login, pass_w):
     open()
     login = login.replace(" ", '')
@@ -142,7 +143,7 @@ def get_succes_auth(login, pass_w):
     else:
         return False
     
-
+#функция для проверки наличия логина и почты при регистрации
 def check_login_email(login, email):
     open()
     cursor.execute('''select * from users where login == (?) or email == (?)''', [login, email])
@@ -153,6 +154,7 @@ def check_login_email(login, email):
     else:
         return True
     
+#функция получающая данные о пользователе для страницы профиля    
 def select_all(login):
     open()
     cursor.execute('''select * from users where login = (?)''', [login])
@@ -162,6 +164,8 @@ def select_all(login):
         return result
     else:
         return False
+    
+#функция создающая новый аккаунт    
 def create_user(login, pass_w, email, phone):
     if check_login_email(login, email):
         open()
@@ -172,7 +176,7 @@ def create_user(login, pass_w, email, phone):
         return True, login
     else:
         return False, None
-
+#функция заносящая новые данные пользователя
 def update_user_info(name, surname, address, login):
     open()
     cursor.execute('''update users set name = (?), surname = (?), address = (?) where login = (?)''', [name, surname, address, login])
@@ -180,6 +184,7 @@ def update_user_info(name, surname, address, login):
     print('succesful')
     close()
 
+#функция подготавливающая контент для окна каталога
 def get_content():
     open()
     cursor.execute('select products.id, products.name, products.price, photos.photo_link from products join photos ON products.id = photos.id_product')
@@ -187,9 +192,14 @@ def get_content():
     conn.commit()
     close()
     return result
-
+#
 def main():
     #pass
+    '''open()
+    do ("DROP table users")
+    do ("DROP table products")
+    do ("DROP table category_product")
+    do ("DROP table photos")'''
     create()
 
 if __name__ == "__main__":

@@ -13,8 +13,10 @@
         </div>
 
         <div class="user_block">
-            <form action="/detail" method="post">
-                <input type="submit" name="auth_text" value="USER">
+            <form action="/detail" method="POST">
+                {%if login != None%}
+                <input type="submit" name="auth_text" value="{{login}}"> {%else%}
+                <input type="submit" name="auth_text" value="Войти"> {%endif%}
             </form>
 
         </div>
@@ -28,8 +30,11 @@
             <div class="detail_for_block">
                 <p class="i">{{ block[1] }}</p>
                 <img src="{{url_for('static', filename=block[3])}}" alt="КАРТИНОЧКА">
-                <p class="i">{{block[2]}}</p>
-                <input type="button" value="КУПИТЬ" class="btn" name="{{block[0]}}">
+                <p class="i">{{block[2]}} ₽</p>
+                <form action="/detail" method="get">
+                    <input type="hidden" name="id_product" value="{{block[0]}}">
+                    <input type="submit" value="КУПИТЬ" class="btn" name="desc">
+                </form>
             </div>
             {% endfor %}
 
