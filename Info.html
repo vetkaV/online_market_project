@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="styleInfo.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleInfo.css')}}">
+    <link rel="stylesheet" href="styleDetail.css">
+</head>
+
+<body>
+    <header class="head_block">
+        <div class="return_to_catalog">
+            <a href="/Catalog.html"> <img id="back_to_catalog" src="https://cdn1.iconfinder.com/data/icons/multimedia-control/100/Multimedia_-19-512.png" /> </a>
+        </div>
+        
+        <div class="user_block">
+            <form action="/detail" method="post">
+                <input type="submit" name="auth_text" value="USER">
+            </form>  
+        </div>
+    </header>
+
+    <div class="container">
+        
+            <div class="img_block">
+            <img src="https://logos-download.com/wp-content/uploads/2020/06/Kaspersky_Anti-Virus_Logo_old.png" alt="КАРТИНОЧКА" >
+            
+            </div>
+    
+                <div class="info_block">
+                    <p class="named">Kaspersky klgjndfkjgnskdjfgksjdfgkls kjbgkdsfhgjhsdfjhgidhfghsudgufshfushdfgdfgdfgdfdfgdgdf</p>
+                    <p class="descrip">MikroTik CRS109-8G-1S-2HnD-IN - многофункциональный Wi-Fi коммутатор 3-го уровня на операционной системе RouterOS level 5.
+                        Все опции для настройки коммутации доступны в специальном разделе меню (Switch).
+                        При необходимости вы можете программно удалить порты из коммутатора, чтобы использовать эти порты для маршрутизации (в таком случае трафик пойдёт через процессор).</p>
+                    <p class="price">Price</p>
+                    <form action="/Info" class="buy" method="post">
+                        <input type="submit" value="КУПИТЬ" class="btn_bought">
+                    </form>
+                    
+                </div>
+
+
+
+    </div>
+</body>
+
+</html>
