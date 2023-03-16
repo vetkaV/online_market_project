@@ -192,15 +192,44 @@ def get_content():
     conn.commit()
     close()
     return result
+
+def get_filtered_content(filter_string):
+    open()
+    cursor.execute('select products.id, products.name, products.price, photos.photo_link from products join photos ON products.id = photos.id_product AND products.category == (?)', [get_id_category(filter_string)])
+    result = cursor.fetchall()
+    conn.commit()
+    close()
+    print(result)
+    return result
+
+def get_id_category(filter_string):
+
+    cursor.execute('SELECT id FROM category_product where category == (?)', [filter_string])
+    result =cursor.fetchone()
+
+    print(result[0])
+    return result[0]
+def get_info(product_id):
+    open()
+    cursor.execute('''select products.id, products.name, products.price, photos.photo_link, 
+    products.desription from products join photos ON products.id = photos.id_product 
+    where products.id == (?)''', [product_id])
+    result = cursor.fetchall()
+    conn.commit()
+    close()
+    return result
+
+def get_category():
+    open()
+    cursor.execute('''SELECT * FROM category_product''')
+    result = cursor.fetchall()
+    conn.commit()
+    close()
+    return result
 #
 def main():
     #pass
-    '''open()
-    do ("DROP table users")
-    do ("DROP table products")
-    do ("DROP table category_product")
-    do ("DROP table photos")'''
-    create()
-
+    #create()
+    get_filtered_content('SIEM')
 if __name__ == "__main__":
     main()

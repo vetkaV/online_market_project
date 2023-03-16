@@ -1,7 +1,7 @@
 from flask import Flask, session, request, redirect, url_for, render_template
 import os
-from startSqlite import get_succes_auth, create_user, select_all, update_user_info,get_content
-from users import User
+from startSqlite import get_succes_auth, create_user, select_all, update_user_info,get_content, get_info, get_category,get_filtered_content
+
 
 
 def get_auth():
@@ -19,7 +19,7 @@ def index():
     if request.method == "POST":
         print(request.form.get('btn_cap'))
         if str(request.form.get('btn_cap')) == '1':
-            return render_template('catalog.html') 
+            return redirect(url_for('detail')) 
     return render_template('main.html')
 
 def auth():
@@ -38,7 +38,10 @@ def reg():
     result = True
     if request.method == "POST":
         print('reg')
-        result, session['login'] = create_user(request.form.get('auth_login'),request.form.get('auth_pass'), request.form.get('auth_email'), request.form.get('auth_number'))
+        result, session['login'] = create_user(request.form.get('auth_login'),
+                                               request.form.get('auth_pass'), 
+                                               request.form.get('auth_email'), 
+                                               request.form.get('auth_number'))
         print(session['login'])
         if result:    
             return redirect(url_for('profile'))   
@@ -47,6 +50,7 @@ def reg():
 
 def detail():
     content=get_content()
+    category=get_category()
     try:
         if request.method == "POST":
             
@@ -56,9 +60,23 @@ def detail():
                 return redirect(url_for('profile'))
             
         if request.method == "GET":
-            query = request.args.get('id_product')
-            print(query)
-        return render_template('detail.html', content_list = content, login = session['login'])
+            session['info'] = request.args.get('id_product')
+            print(session['info'])
+            session['filter']=request.args.get('filter')
+            print('filter', session['filter'])
+            if session['filter'] != None:
+                content=get_filtered_content(session['filter'])
+                return render_template('detail.html', 
+                               content_list = content, 
+                               login = session['login'], 
+                               category=category)
+            if session['info'] != None and int(session['info']) > 0:
+                session['info_product'] = get_info(session['info'])
+                return redirect(url_for('info'))
+        return render_template('detail.html', 
+                               content_list = content, 
+                               login = session['login'], 
+                               category=category)
     except:
         session['login'] = None
         return render_template('detail.html', content_list = content, login = session['login'])
@@ -90,6 +108,15 @@ def profile():
     return render_template('profile.html')    
 
 
+def info():
+    
+    print(session['info_product'])
+    return render_template('Info.html', images=session['info_product'][0][3],
+                                        name=session['info_product'][0][1], 
+                                        desk=session['info_product'][0][4], 
+                                        price=session['info_product'][0][2],
+                                        id_product=session['info_product'][0][0],
+                                        login=session['login'])
 folder = os.getcwd()
 app = Flask(__name__, template_folder=folder, static_folder=folder)  
 app.add_url_rule('/', 'index', index, methods=['post', 'get'])
@@ -98,7 +125,7 @@ app.add_url_rule('/catalog', 'catalog', catalog, methods=['post', 'get'])
 app.add_url_rule('/reg', 'reg', reg, methods=['post', 'get'])
 app.add_url_rule('/detail', 'detail', detail, methods=['post', 'get'])
 app.add_url_rule('/profile', 'profile', profile, methods=['post', 'get'])
-
+app.add_url_rule('/info', 'info', info, methods=['post', 'get'])
 app.config['SECRET_KEY'] = 'ThisIsSecretSecretSecretLife'
 
 if __name__ == "__main__":

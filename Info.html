@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="styleInfo.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleInfo.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styleDetail.css')}}">
+    <link rel="stylesheet" href="styleDetail.css">
+</head>
+
+<body>
+    <header class="head_block">
+        <div class="return_to_catalog">
+            <a href="/detail"> <img id="back_to_catalog" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Back_Arrow.svg/1024px-Back_Arrow.svg.png" /> </a>
+        </div>
+
+        <div class="user_block">
+            <form action="/detail" method="post">
+                {%if login != None%}
+                <input type="submit" name="auth_text" value="{{login}}"> {%else%}
+                <input type="submit" name="auth_text" value="Войти"> {%endif%}
+            </form>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <div class="img_block">
+            <img src="{{url_for('static', filename=images)}}" alt="КАРТИНОЧКА">
+
+        </div>
+
+        <div class="info_block">
+            <p class="named">{{name}}</p>
+            <p class="descrip">{{desk}}</p>
+            <p class="price">{{price}}</p>
+            <form action="/Info" class="buy" method="post">
+                <input type="submit" value="КУПИТЬ" class="btn_bought" , name="{{id_product}}">
+            </form>
+
+        </div>
+
+
+
+    </div>
+</body>
+
+</html>
