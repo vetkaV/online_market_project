@@ -34,8 +34,9 @@
             <p class="named">{{name}}</p>
             <p class="descrip">{{desk}}</p>
             <p class="price">{{price}}</p>
-            <form action="/Info" class="buy" method="post">
-                <input type="submit" value="КУПИТЬ" class="btn_bought" , name="{{id_product}}">
+            <form action="/info" class="buy" method="get">
+                <input type="hidden" name="prod_id" value="{{id_product}}">
+                <input type="submit" value="КУПИТЬ" class="btn_bought" , name="buy_btn">
             </form>
 
         </div>

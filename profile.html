@@ -12,7 +12,7 @@
 <body>
     <header class="head_block">
         <div class="return_btn">
-            <img id="back_btn" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Back_Arrow.svg/1024px-Back_Arrow.svg.png">
+            <a href="/detail"> <img id="back_to_catalog" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Back_Arrow.svg/1024px-Back_Arrow.svg.png" /> </a>
         </div>
 
         <div class="user_block">
@@ -53,30 +53,25 @@
         </div>
 
         <div class="basket">
-
+            <p>Ваши заказы:</p>
+            {% if orders %} {% for order in orders %}
             <div class="item_block">
                 <div class="img_block">
-                    <img src="https://logos-download.com/wp-content/uploads/2020/06/Kaspersky_Anti-Virus_Logo_old.png" alt="КАРТИНОЧКА">
+                    <img src="{{url_for('static', filename=order[3])}}" alt="КАРТИНОЧКА">
                 </div>
                 <div class="info_block">
-                    <p class="i">Название</p>
-                    <p class="i">Цена</p>
-                    <img src="" alt="УРНА" style="width: 50%; height: 50%;">
+                    <p class="number_order">Заказа №{{order[2]}}</p>
+                    <p class="number_order">{{order[4]}}</p>
+                    <p class="number_order">{{order[1]}}</p>
+                    <form action="/profile" method="POST">
+                        <input type="hidden" name="delete_id" , value="{{order[2]}}">
+                        <input type="submit" value="delete" name="delete_btn" class="delete_btn">
+                    </form>
                 </div>
             </div>
-
-            <div class="item_block">
-                <div class="img_block">
-                    <img src="https://logos-download.com/wp-content/uploads/2020/06/Kaspersky_Anti-Virus_Logo_old.png" alt="КАРТИНОЧКА">
-                </div>
-                <div class="info_block">
-                    <p class="i">Название</p>
-                    <p class="i">Цена</p>
-                    <img src="" alt="УРНА" style="width: 50%; height: 50%;">
-                </div>
-            </div>
-
-
+            {% endfor %} {%else%}
+            <p class="empty_basket">Ваша корзина пуста</p>
+            {% endif %}
         </div>
     </div>
 </body>

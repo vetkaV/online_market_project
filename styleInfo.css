@@ -43,8 +43,7 @@ body {
     display: flex;
     justify-content: space-around;
     margin: 10px;
-    background-color: black ;
-
+    background-color: black;
 }
 
 .user_block {
@@ -53,19 +52,17 @@ body {
     text-align: center;
     border: 1px black solid;
     margin: 2px;
-    
 }
 
-.user_block input{
+.user_block input {
     width: 100%;
     height: 50px;
     font-size: 20px;
     border: 0;
     background-color: rgba(255, 255, 255, 0.3);
-    
 }
 
-.user_block input:hover{
+.user_block input:hover {
     color: white;
     border: 1px white solid;
 }
@@ -88,18 +85,19 @@ body {
     font-size: 20px;
     color: white;
     margin: 20px;
-    
 }
 
 .img_block {
     height: auto;
     width: 400px;
 }
-.img_block img{
+
+.img_block img {
     width: 400px;
     height: 400px;
     margin: 15px;
 }
+
 .info_block {
     width: 100%;
     margin: 15px;
@@ -108,9 +106,8 @@ body {
     font-size: 25px;
 }
 
-.i {
-    margin: 0;
-    margin-bottom: 5px;
+.i p {
+    margin: 2px 0;
 }
 
 .info_for_item input {
@@ -140,7 +137,6 @@ body {
     font-size: 15px;
     width: 20%;
     padding: 5px;
-    
     border: 1px rgb(77, 122, 4) solid;
     color: white;
     background-color: rgba(0, 0, 0, 0.5);

@@ -130,6 +130,21 @@ def create():
     cursor.executemany('''INSERT into photos (id_product, photo_link) VALUES ((?), (?))''', photos)
     conn.commit()
 
+
+def create_order_db():
+    open()
+    cursor.execute('''PRAGMA foreign_keys=on''')
+    do('''CREATE TABLE IF NOT EXISTS orders(
+    order_id INTEGER PRIMARY KEY NOT NULL,
+    user_id INTEGER NOT NULL,
+    product_id INTEGER NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users (id),
+    FOREIGN KEY (product_id) REFERENCES products (id)
+    )''')
+
+    conn.commit()
+    close()
+
 #функция проверяющая наличие логина и проверяющая на правильность введенные данных при авторизации
 def get_succes_auth(login, pass_w):
     open()
@@ -226,10 +241,49 @@ def get_category():
     conn.commit()
     close()
     return result
+
+
+def get_order(login):
+    open()
+    cursor.execute("select id from users where login = ?", [login])
+    user_id = cursor.fetchone()[0]
+    conn.commit()
+    cursor.execute('''SELECT products.id, products.price, orders.order_id, photos.photo_link, products.name
+    FROM orders JOIN products ON orders.product_id == products.id 
+    JOIN photos ON products.id == photos.id_product WHERE orders.user_id == ?''', [user_id])
+    result = cursor.fetchall()
+    conn.commit()
+    close()
+    return result
+def add_order(prod_id, login):
+    if login != None:
+        open()
+        cursor.execute("select id from users where login = ?", [login])
+        user_id = cursor.fetchone()[0]
+        conn.commit()
+        cursor.execute('INSERT INTO orders (user_id, product_id) VALUES (?, ?)', [user_id, prod_id])
+        conn.commit()
+        close()
+        return True
+    else: return False
+
+def delete_order(login, order_id):
+    open()
+    cursor.execute("select id from users where login = ?", [login])
+    user_id = cursor.fetchone()[0]
+    conn.commit()
+    cursor.execute('DELETE FROM orders where user_id = ? AND order_id = ?', [user_id, order_id])
+    conn.commit()
+    cursor.execute('SELECT * FROM orders where user_id = ? AND order_id = ?', [user_id, order_id])
+    result = cursor.fetchall()
+    conn.commit()
+    return len(result) > 0
+
 #
 def main():
-    #pass
+    pass
     #create()
-    get_filtered_content('SIEM')
+    #create_order_db()
+    
 if __name__ == "__main__":
     main()

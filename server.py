@@ -1,7 +1,7 @@
 from flask import Flask, session, request, redirect, url_for, render_template
 import os
-from startSqlite import get_succes_auth, create_user, select_all, update_user_info,get_content, get_info, get_category,get_filtered_content
-
+from startSqlite import get_succes_auth, create_user, select_all, update_user_info,get_content, get_info, get_category,get_filtered_content, add_order, get_order
+from startSqlite import delete_order
 
 
 def get_auth():
@@ -84,19 +84,22 @@ def detail():
 def profile():
     if request.method == "GET":
         try:
-            if session['login'] != None:
+            if session['login'] != None and request.args.get('delete_id') == None:
                 session["profile_info"] = select_all(session['login'])
                 return render_template('profile.html', username = session['profile_info'][1], 
-                                                        email = session['profile_info'][3], 
-                                                        phone = session['profile_info'][4],
-                                                        name = session['profile_info'][5],
-                                                        surname = session['profile_info'][6],
-                                                        address = session['profile_info'][7])
+                                                            email = session['profile_info'][3], 
+                                                            phone = session['profile_info'][4],
+                                                            name = session['profile_info'][5],
+                                                            surname = session['profile_info'][6],
+                                                            address = session['profile_info'][7],
+                                                            orders= get_order(session['login'])
+                                                            )
+            
             else: return redirect(url_for('auth'))
         except:
             session['login'] = None
             return redirect(url_for('auth'))
-
+        
     if request.method == "POST":
         if request.form.get('save_change') == 'Сохранить':
             print(request.form.get('save_change'))
@@ -105,13 +108,26 @@ def profile():
                              request.form.get('address_user'),
                              session['profile_info'][1])
             return redirect(url_for('profile'))
+        if request.form.get('delete_btn') == 'delete':
+            print('delete')
+            if delete_order(session['login'], request.form.get('delete_id')):
+                return redirect(url_for('profile'))
+            else:
+                print('Ошибка')
+                return redirect(url_for('profile'))
     return render_template('profile.html')    
 
 
 def info():
     
     print(session['info_product'])
-    return render_template('Info.html', images=session['info_product'][0][3],
+    
+    if request.method == 'GET':
+        if str(request.args.get('buy_btn')) == "КУПИТЬ":
+            print('prod_id -',request.args.get('prod_id'))
+            if not add_order(request.args.get('prod_id'), session['login']):
+                return redirect(url_for('auth'))
+    return render_template('info.html', images=session['info_product'][0][3],
                                         name=session['info_product'][0][1], 
                                         desk=session['info_product'][0][4], 
                                         price=session['info_product'][0][2],

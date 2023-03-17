@@ -29,6 +29,7 @@ body {
     display: block;
     justify-content: center;
     align-content: center;
+    font-size: 20px;
 }
 
 .user_info {
@@ -54,14 +55,17 @@ body {
 }
 
 .img_block {
-    width: auto;
-    height: auto;
+    max-width: 150px;
+    max-height: 150px;
+    margin: auto 5px;
+    padding: 0;
 }
 
 .img_block img {
-    margin: 5px 5px;
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
+    margin: 0;
+    padding: 0;
 }
 
 .info_block {
@@ -87,17 +91,21 @@ body {
     color: white;
     background-color: rgba(0, 0, 0, 0.5);
 }
-change_info input:active{
+
+change_info input:active {
     border: 2px rgb(77, 122, 4) solid;
 }
+
 #save_btn {
     width: 30%;
     margin-left: 35%;
 }
-#save_btn:hover{
+
+#save_btn:hover {
     background-color: rgb(77, 122, 4);
     border: 1px rgb(0, 0, 0) solid;
 }
+
 .avatar_image {
     margin-top: auto;
     margin-bottom: auto;
@@ -105,11 +113,40 @@ change_info input:active{
     width: 250px;
     height: 250px;
 }
+
 .avatar_image img {
     width: 250px;
     height: 250px;
 }
-.info_user_block{
-    
+
+.info_user_block {
     display: flex;
+}
+
+.number_order {
+    margin: 10px 0;
+}
+
+.delete_btn {
+    border: 1px rgb(77, 122, 4) solid;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.9);
+    font-size: 20px;
+    padding: 5px 40px;
+    margin: 10px 0;
+}
+
+.delete_btn:hover {
+    background-color: rgba(77, 122, 4, 0.7);
+    border: 1px rgb(0, 0, 0) solid;
+}
+
+#back_to_catalog {
+    width: 50px;
+    height: 50px;
+    filter: invert(1);
+}
+
+#back_to_catalog:hover {
+    filter: opacity(.5) drop-shadow(0 0 0 rgb(157, 255, 0));
 }
