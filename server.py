@@ -134,7 +134,7 @@ def info():
                                         id_product=session['info_product'][0][0],
                                         login=session['login'])
 folder = os.getcwd()
-app = Flask(__name__, template_folder=folder, static_folder=folder)  
+app = Flask(__name__, template_folder=os.path.join(folder, 'templates'), static_folder=folder)  
 app.add_url_rule('/', 'index', index, methods=['post', 'get'])
 app.add_url_rule('/auth', 'auth', auth, methods=['post', 'get'])
 app.add_url_rule('/catalog', 'catalog', catalog, methods=['post', 'get'])

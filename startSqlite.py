@@ -1,5 +1,5 @@
 import sqlite3
-from users import User
+
 db_name = 'usersInfo.sqlite'
 
 conn=None
