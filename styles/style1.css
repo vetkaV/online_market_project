@@ -124,3 +124,9 @@ body {
 .reg_status {
     text-align: center;
 }
+
+.contacts img {
+    height: 80px;
+    margin: 15px;
+    filter: invert();
+}

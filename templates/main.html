@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
 
-<link rel="stylesheet" href="{{ url_for('static', filename='styles/style1.css')}}">
-<link rel="stylesheet" href='styles/style1.css'>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style1.css')}}">
+    <link rel="stylesheet" href='styles/style1.css'>
+    <title>Главная</title>
+</head>
 
 <body>
     <div class="page">
@@ -17,41 +20,22 @@
         <div class="catalog">
 
             <div class="catalog_block">
+                {% for content in start_content %}
                 <div class="block">
-                    <p class="typename">Седан</p>
-                    <img href="https://pokatim.ru/uploads/posts/2019-12/1575357511_vyrvueor.jpg" class="" style="width: 100px; height: 100px;">
-                    <p>Цена</p>
-                    <form action="/" method="post">
-                        <button type="submit" id="btn_bought" name="btn_cap" value="1">Купить</button>
+                    <p class="typename">{{content[1]}}</p>
+                    <img src="{{url_for('static', filename='photo/logos.png')}}" class="" style="width: 100px; height: 100px;">
+                    <p>От {{content[0]}} ₽</p>
+                    <form action="/detail" method="get">
+                        <button type="submit" id="btn_bought" name="filter" value="{{content[1]}}">Купить</button>
                     </form>
                 </div>
-
-                <div class="block">
-                    <p class="typename">Кроссовер</p>
-                    <img href="https://pokatim.ru/uploads/posts/2019-12/1575357511_vyrvueor.jpg" class="" style="width: 100px; height: 100px;">
-                    <p>Цена</p>
-                    <form action="/" method="post">
-                        <button type="submit" id="btn_bought" name="btn_cap" value="2">Купить</button>
-                    </form>
-                </div>
-
-                <div class="block">
-                    <p class="typename">Джип</p>
-                    <img href="https://pokatim.ru/uploads/posts/2019-12/1575357511_vyrvueor.jpg" class="" style="width: 100px; height: 100px;">
-                    <p>Цена</p>
-                    <form action="/" method="post">
-                        <button type="submit" id="btn_bought" name="btn_cap" value="3">Купить</button>
-                    </form>
-                </div>
-
-
-
+                {%endfor%}
             </div>
         </div>
 
         <div class="contacts">
             <p class="communicate">Контакты</p>
-            <img src="https://logos-download.com/wp-content/uploads/2021/01/Novosibirsk_State_Technical_University_Logo-2048x834.png" class="" style="width: 256px; height: 128px; align-content: right;">
+            <img src="https://logos-download.com/wp-content/uploads/2021/01/Novosibirsk_State_Technical_University_Logo-2048x834.png" class="">
 
         </div>
     </div>

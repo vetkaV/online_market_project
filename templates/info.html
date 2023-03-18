@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/styleInfo.css')}}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/styleDetail.css')}}">
     <link rel="stylesheet" href="styles/styleDetail.css">
+    <title>{{name}}</title>
 </head>
 
 <body>
@@ -33,7 +34,7 @@
         <div class="info_block">
             <p class="named">{{name}}</p>
             <p class="descrip">{{desk}}</p>
-            <p class="price">{{price}}</p>
+            <p class="price">{{price}} ₽</p>
             <form action="/info" class="buy" method="get">
                 <input type="hidden" name="prod_id" value="{{id_product}}">
                 <input type="submit" value="КУПИТЬ" class="btn_bought" , name="buy_btn">

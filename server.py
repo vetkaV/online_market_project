@@ -1,7 +1,7 @@
 from flask import Flask, session, request, redirect, url_for, render_template
 import os
 from startSqlite import get_succes_auth, create_user, select_all, update_user_info,get_content, get_info, get_category,get_filtered_content, add_order, get_order
-from startSqlite import delete_order
+from startSqlite import delete_order, start_pages_category
 
 
 def get_auth():
@@ -16,11 +16,14 @@ def get_auth():
 
 
 def index():
+    start_content = start_pages_category()
     if request.method == "POST":
         print(request.form.get('btn_cap'))
         if str(request.form.get('btn_cap')) == '1':
             return redirect(url_for('detail')) 
-    return render_template('main.html')
+    return render_template('main.html', 
+                           start_content=start_content,
+                           )
 
 def auth():
     if request.method == "POST":
@@ -79,7 +82,10 @@ def detail():
                                category=category)
     except:
         session['login'] = None
-        return render_template('detail.html', content_list = content, login = session['login'])
+        return render_template('detail.html', 
+                               content_list = content, 
+                               login = session['login'], 
+                               category=category)
 
 def profile():
     if request.method == "GET":

@@ -279,11 +279,21 @@ def delete_order(login, order_id):
     conn.commit()
     return len(result) > 0
 
+def start_pages_category():
+    open()
+    cursor.execute('''SELECT MIN(products.price), category_product.category , products.id
+    FROM products JOIN category_product ON products.id == category_product.id 
+    GROUP BY category_product.id''')
+    conn.commit()
+    result = cursor.fetchall()
+    print(result)
+    return result
 #
 def main():
     pass
     #create()
     #create_order_db()
+    start_pages_category()
     
 if __name__ == "__main__":
     main()
