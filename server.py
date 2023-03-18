@@ -208,7 +208,6 @@ folder = os.getcwd() #полчаем статичную папку
 app = Flask(__name__, template_folder=os.path.join(folder, 'templates'), static_folder=folder)#создаем сервер 
 app.add_url_rule('/', 'index', index, methods=['post', 'get']) #создание правил
 app.add_url_rule('/auth', 'auth', auth, methods=['post', 'get'])#создание правил
-app.add_url_rule('/catalog', 'catalog', catalog, methods=['post', 'get'])#создание правил
 app.add_url_rule('/reg', 'reg', reg, methods=['post', 'get'])#создание правил
 app.add_url_rule('/detail', 'detail', detail, methods=['post', 'get'])#создание правил
 app.add_url_rule('/profile', 'profile', profile, methods=['post', 'get'])#создание правил
