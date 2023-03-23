@@ -1,4 +1,5 @@
 import sqlite3
+import hashlib
 
 db_name = 'usersInfo.sqlite'
 
@@ -147,6 +148,7 @@ def create_order_db():
 
 #функция проверяющая наличие логина и проверяющая на правильность введенные данных при авторизации
 def get_succes_auth(login, pass_w):
+    hashed_password = hashlib.sha256(pass_w.encode()).hexdigest()
     open()
     login = login.replace(" ", '')
     cursor.execute('''select * from users where login == (?)''', [login])
@@ -154,7 +156,7 @@ def get_succes_auth(login, pass_w):
     close()
     print(result)
     if result != None:
-        return str(result[1]) == login and str(result[2]) == pass_w
+        return str(result[1]) == login and str(result[2]) == hashed_password
     else:
         return False
     
@@ -182,9 +184,10 @@ def select_all(login):
     
 #функция создающая новый аккаунт    
 def create_user(login, pass_w, email, phone):
+    hashed_password = hashlib.sha256(pass_w.encode()).hexdigest()
     if check_login_email(login, email):
         open()
-        cursor.execute('''insert into users (login, password, email, phone, name, surname, address) values (?, ?, ?, ?, 'None', 'None', 'None')''', [login, pass_w, email, phone])
+        cursor.execute('''insert into users (login, password, email, phone, name, surname, address) values (?, ?, ?, ?, 'None', 'None', 'None')''', [login, hashed_password, email, phone])
         print('succesful')
         conn.commit()
         close()
