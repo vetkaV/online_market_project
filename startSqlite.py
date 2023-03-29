@@ -183,6 +183,7 @@ def select_all(login):
     
 #функция создающая новый аккаунт    
 def create_user(login, pass_w, email, phone):
+    hashed_password = hashlib.sha256(pass_w.encode()).hexdigest()
     if check_login_email(login, email):
         hashed_password = hashlib.sha256(pass_w.encode()).hexdigest()
         open()
