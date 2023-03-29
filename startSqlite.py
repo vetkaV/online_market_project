@@ -1,14 +1,14 @@
+import hashlib
 import sqlite3
 
-db_name = 'usersInfo.sqlite'
 
-conn=None
-cursor=None
+
 #Функция создающая соединение к базе данных
 def open():
     global conn, cursor
-    conn = sqlite3.connect(db_name)
+    conn = sqlite3.connect('usersInfo.sqlite')
     cursor = conn.cursor()
+    
 #функция закрывабщая соединение
 def close():
     cursor.close()
@@ -129,7 +129,7 @@ def create():
     conn.commit()
     cursor.executemany('''INSERT into photos (id_product, photo_link) VALUES ((?), (?))''', photos)
     conn.commit()
-
+    close()
 
 def create_order_db():
     open()
@@ -147,14 +147,15 @@ def create_order_db():
 
 #функция проверяющая наличие логина и проверяющая на правильность введенные данных при авторизации
 def get_succes_auth(login, pass_w):
+    hashed_password = hashlib.sha256(pass_w.encode()).hexdigest()
     open()
     login = login.replace(" ", '')
     cursor.execute('''select * from users where login == (?)''', [login])
     result = cursor.fetchone()
     close()
     print(result)
-    if result != None:
-        return str(result[1]) == login and str(result[2]) == pass_w
+    if result is not None:
+        return str(result[1]) == login and str(result[2]) == hashed_password
     else:
         return False
     
@@ -164,7 +165,7 @@ def check_login_email(login, email):
     cursor.execute('''select * from users where login == (?) or email == (?)''', [login, email])
     result = cursor.fetchall()
     close()
-    if result != None and len(result) > 0:
+    if result is not None and len(result) > 0:
         return False
     else:
         return True
@@ -175,7 +176,7 @@ def select_all(login):
     cursor.execute('''select * from users where login = (?)''', [login])
     result = cursor.fetchone()
     close()
-    if result != None:
+    if result is not None:
         return result
     else:
         return False
@@ -183,8 +184,11 @@ def select_all(login):
 #функция создающая новый аккаунт    
 def create_user(login, pass_w, email, phone):
     if check_login_email(login, email):
+        hashed_password = hashlib.sha256(pass_w.encode()).hexdigest()
         open()
-        cursor.execute('''insert into users (login, password, email, phone, name, surname, address) values (?, ?, ?, ?, 'None', 'None', 'None')''', [login, pass_w, email, phone])
+        cursor.execute('''insert into users 
+        (login, password, email, phone, name, surname, address) 
+        values (?, ?, ?, ?, 'None', 'None', 'None')''', [login, hashed_password, email, phone])
         print('succesful')
         conn.commit()
         close()
@@ -224,6 +228,7 @@ def get_id_category(filter_string):
 
     print(result[0])
     return result[0]
+
 def get_info(product_id):
     open()
     cursor.execute('''select products.id, products.name, products.price, photos.photo_link, 
@@ -233,6 +238,21 @@ def get_info(product_id):
     conn.commit()
     close()
     return result
+
+
+def get_sum_products_users(login):
+    open()
+    cursor.execute("select id from users where login = ?", [login])
+    user_id = cursor.fetchone()[0]
+    conn.commit()
+    cursor.execute('''SELECT sum(products.price)
+    FROM products JOIN orders ON products.id == orders.product_id
+    JOIN users ON orders.user_id = users.id WHERE users.id == ?''', [user_id])
+    conn.commit()
+    result = cursor.fetchone()
+    print(result)
+    return result[0]
+
 
 def get_category():
     open()
@@ -256,7 +276,7 @@ def get_order(login):
     close()
     return result
 def add_order(prod_id, login):
-    if login != None:
+    if login is not None:
         open()
         cursor.execute("select id from users where login = ?", [login])
         user_id = cursor.fetchone()[0]
@@ -277,6 +297,7 @@ def delete_order(login, order_id):
     cursor.execute('SELECT * FROM orders where user_id = ? AND order_id = ?', [user_id, order_id])
     result = cursor.fetchall()
     conn.commit()
+    close()
     return len(result) > 0
 
 def start_pages_category():
@@ -287,13 +308,15 @@ def start_pages_category():
     conn.commit()
     result = cursor.fetchall()
     print(result)
+    close()
     return result
 #
 def main():
     pass
     #create()
     #create_order_db()
-    start_pages_category()
+    #start_pages_category()
+    
     
 if __name__ == "__main__":
     main()

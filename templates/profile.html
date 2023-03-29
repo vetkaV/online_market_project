@@ -63,14 +63,16 @@
                 <div class="info_block">
                     <p class="number_order">Заказа №{{order[2]}}</p>
                     <p class="number_order">{{order[4]}}</p>
-                    <p class="number_order">{{order[1]}}</p>
+                    <p class="number_order">{{order[1]}} ₽</p>
                     <form action="/profile" method="POST">
                         <input type="hidden" name="delete_id" , value="{{order[2]}}">
                         <input type="submit" value="delete" name="delete_btn" class="delete_btn">
                     </form>
                 </div>
             </div>
-            {% endfor %} {%else%}
+            {% endfor %}
+            <p class="empty_basket">Итого: {{sum_orders}} ₽</p>
+            {%else%}
             <p class="empty_basket">Ваша корзина пуста</p>
             {% endif %}
         </div>

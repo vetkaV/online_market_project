@@ -1,7 +1,7 @@
 from flask import Flask, session, request, redirect, url_for, render_template
 import os
 from startSqlite import get_succes_auth, create_user, select_all, update_user_info,get_content, get_info, get_category,get_filtered_content, add_order, get_order
-from startSqlite import delete_order, start_pages_category
+from startSqlite import delete_order, start_pages_category, get_sum_products_users
 
 
 '''
@@ -106,13 +106,13 @@ def detail():
             print(session['info'])
             session['filter']=request.args.get('filter')
             print('filter', session['filter'])
-            if session['filter'] != None:
+            if session['filter'] is not None:
                 content=get_filtered_content(session['filter'])
                 return render_template('detail.html', 
                                content_list = content, 
                                login = session['login'], 
                                category=category)
-            if session['info'] != None and int(session['info']) > 0:
+            if session['info'] is not None and int(session['info']) > 0:
                 session['info_product'] = get_info(session['info'])
                 return redirect(url_for('info'))
         return render_template('detail.html', 
@@ -143,7 +143,7 @@ def detail():
 def profile():
     if request.method == "GET":
         try:
-            if session['login'] != None and request.args.get('delete_id') == None:
+            if session['login'] is not None and request.args.get('delete_id') is None:
                 session["profile_info"] = select_all(session['login'])
                 return render_template('profile.html', username = session['profile_info'][1], 
                                                             email = session['profile_info'][3], 
@@ -151,7 +151,8 @@ def profile():
                                                             name = session['profile_info'][5],
                                                             surname = session['profile_info'][6],
                                                             address = session['profile_info'][7],
-                                                            orders= get_order(session['login'])
+                                                            orders= get_order(session['login']),
+                                                            sum_orders = get_sum_products_users(session['login'])
                                                             )
             
             else: return redirect(url_for('auth'))
@@ -188,6 +189,8 @@ def profile():
 Кнопка купить позволяет добавить заказ пользователю, если он авторизован
 Если он не авторизован, то кидает на страницу авторизации
 '''
+
+
 def info():
     print(session['info_product'])
     
@@ -212,7 +215,13 @@ app.add_url_rule('/reg', 'reg', reg, methods=['post', 'get'])#создание �
 app.add_url_rule('/detail', 'detail', detail, methods=['post', 'get'])#создание правил
 app.add_url_rule('/profile', 'profile', profile, methods=['post', 'get'])#создание правил
 app.add_url_rule('/info', 'info', info, methods=['post', 'get'])#создание правил
-app.config['SECRET_KEY'] = 'ThisIsSecretSecretSecretLife' #секретный пароль для шифрования сессии
+
+
+app.config['SECRET_KEY'] = open('pass.bin', 'rb').read()
+
+
+
+
 
 if __name__ == "__main__":
     # Запускаем веб-сервер:
