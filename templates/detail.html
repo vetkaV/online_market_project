@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="styles/styleDetail.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/styleDetail.css')}}">
+    <title>Каталог</title>
+    <link rel="icon" href="{{url_for('static', filename='photo/protection.png')}}">
+</head>
+
+<body>
+    <header class="head_block">
+        <div class="return_btn">
+            <a href="/"> <img id="back_btn" src="https://cdn1.iconfinder.com/data/icons/multimedia-control/100/Multimedia_-19-512.png"> </a>
+        </div>
+
+        <div class="user_block">
+            <form action="/detail" method="POST">
+                {%if login != None%}
+                <input type="submit" name="auth_text" value="{{login}}"> {%else%}
+                <input type="submit" name="auth_text" value="Войти"> {%endif%}
+            </form>
+
+        </div>
+    </header>
+    <div class="root">
+        <div class="filter_block">
+            <p>FILTER</p>
+            <form action="/detail" method="get">
+                {% for cat_element in category %}
+                <input class="filter_btn" type="submit" value="{{cat_element[1]}}" name="filter"> {% endfor %}
+            </form>
+        </div>
+        <div class="content_block">
+            {% for block in content_list %}
+            <div class="detail_for_block">
+                <p class="i">{{ block[1] }}</p>
+                <img src="{{url_for('static', filename=block[3])}}" alt="КАРТИНОЧКА">
+                <p class="i">{{block[2]}} ₽</p>
+                <form action="/detail" method="get">
+                    <input type="hidden" name="id_product" value="{{block[0]}}">
+                    <input type="submit" value="Подробнее" class="btn" name="desc">
+                </form>
+            </div>
+            {% endfor %}
+
+
+        </div>
+
+
+    </div>
+</body>
+
+</html>

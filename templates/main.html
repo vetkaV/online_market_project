@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style1.css')}}">
+    <link rel="stylesheet" href='styles/style1.css'>
+    <title>Главная</title>
+    <link rel="icon" href="{{url_for('static', filename='photo/protection.png')}}">
+</head>
+
+<body>
+    <div class="page">
+        <div class="authorization">
+            <p class="name">infoSec market</p>
+            <img src="https://logos-download.com/wp-content/uploads/2021/01/Novosibirsk_State_Technical_University_Logo-2048x834.png" class="image_block" style="width: 256px; height: 104px;">
+            <form action="/auth" method="POST">
+                <button type="submit" id="btn_auth" name="btn_auth">Войти</button>
+            </form>
+        </div>
+
+        <div class="catalog">
+
+            <div class="catalog_block">
+                {% for content in start_content %}
+                <div class="block">
+                    <p class="typename">{{content[1]}}</p>
+                    <img src="{{url_for('static', filename='photo/logos.png')}}" class="" style="width: 100px; height: 100px;">
+                    <p>От {{content[0]}} ₽</p>
+                    <form action="/detail" method="get">
+                        <button type="submit" id="btn_bought" name="filter" value="{{content[1]}}">Купить</button>
+                    </form>
+                </div>
+                {%endfor%}
+            </div>
+        </div>
+
+        <div class="contacts">
+            <p class="communicate">Контакты</p>
+            <img src="https://logos-download.com/wp-content/uploads/2021/01/Novosibirsk_State_Technical_University_Logo-2048x834.png" class="">
+
+        </div>
+    </div>
+</body>
+
+</html>

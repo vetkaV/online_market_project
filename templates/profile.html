@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="styles/styleProfile.css">
+    <link rel="stylesheet" href="styles/styleDetail.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/styleDetail.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/styleProfile.css')}}">
+    <title>Профиль - {{username}}</title>
+    <link rel="icon" href="{{url_for('static', filename='photo/protection.png')}}">
+</head>
+
+<body>
+    <header class="head_block">
+        <div class="return_btn">
+            <a href="/detail"> <img id="back_to_catalog" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Back_Arrow.svg/1024px-Back_Arrow.svg.png" /> </a>
+        </div>
+
+        <div class="user_block">
+            <form action="/detail" method="post">
+                <input type="submit" name="auth_text" value="{{username}}">
+            </form>
+
+        </div>
+    </header>
+    <div class="root">
+
+        <div class="user_info">
+            <div class="info_user_block">
+                <div class="avatar_image">
+                    <img src="https://cdn-icons-png.flaticon.com/512/9980/9980468.png" alt="КАРТИНКА" srcset="">
+                </div>
+
+                <div class="info">
+                    <p class="">Пользователь: {{username}}</p>
+                    <p class="">Email: {{email}}</p>
+                    <p class="">Phone: {{phone}}</p>
+                    <p class="">Имя: {{name}}</p>
+                    <p class="">Фамилия: {{surname}}</p>
+                    <p class="">Адрес: {{address}}</p>
+                </div>
+            </div>
+
+            <hr>
+            <div class="form">
+                <form action="/profile" class="change_info" method="post">
+                    <input type="string" name="name_user" placeholder="Имя" required>
+                    <input type="string" name="surname_user" placeholder="Фамилия" required>
+                    <input type="string" name="address_user" placeholder="Адрес" required>
+                    <input type="submit" value="Сохранить" id="save_btn" name="save_change">
+                </form>
+            </div>
+
+        </div>
+
+        <div class="basket">
+            <p>Ваши заказы:</p>
+            {% if orders %} {% for order in orders %}
+            <div class="item_block">
+                <div class="img_block">
+                    <img src="{{url_for('static', filename=order[3])}}" alt="КАРТИНОЧКА">
+                </div>
+                <div class="info_block">
+                    <p class="number_order">Заказа №{{order[2]}}</p>
+                    <p class="number_order">{{order[4]}}</p>
+                    <p class="number_order">{{order[1]}} ₽</p>
+                    <form action="/profile" method="POST">
+                        <input type="hidden" name="delete_id" , value="{{order[2]}}">
+                        <input type="submit" value="delete" name="delete_btn" class="delete_btn">
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+            <p class="empty_basket">Итого: {{sum_orders}} ₽</p>
+            {%else%}
+            <p class="empty_basket">Ваша корзина пуста</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+
+</html>

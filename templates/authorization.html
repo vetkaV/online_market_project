@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/styleAuth.css')}}">
+    <link rel="stylesheet" href="styles/styleAuth.css">
+    <title>Авторизация</title>
+    <link rel="icon" href="{{url_for('static', filename='photo/protection.png')}}">
+</head>
+
+<body>
+    <div class="background">
+        <div class="form_auth_block">
+            <div class="form_auth_block_content">
+                <p class="form_auth_block_head_text">Авторизация</p>
+                <form class="form_auth_style" action="/auth" method="post">
+                    <input type="login" name="auth_login" placeholder="Login" required>
+                    <input type="password" name="auth_pass" placeholder="Password" required>
+                    <button class="form_auth_button" type="submit" name="form_auth_submit">Войти</button>
+                    <p id="reg"><a href="/reg">Регистрация</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

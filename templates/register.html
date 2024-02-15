@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/styleAuth.css')}}">
+    <link rel="stylesheet" href="styles/styleAuth.css">
+    <title>Регистрация</title>
+    <link rel="icon" href="{{url_for('static', filename='photo/protection.png')}}">
+</head>
+
+<body>
+    <div class="background">
+        <div class="form_auth_block">
+            <div class="form_auth_block_content">
+                <p class="form_auth_block_head_text">Регистрация</p>
+                <form class="form_auth_style" action="/reg" method="post">
+                    <input type="login" name="auth_login" placeholder="Login" required>
+                    <input type="password" name="auth_pass" placeholder="Password" required>
+                    <input type="email" name="auth_email" placeholder="Email" required>
+                    <input type="number" name="auth_number" placeholder="Phone" required> {%if status == False %}
+                    <p class="reg_status">Данный логин или email уже зарегистрирован</p>
+                    {%else%}
+                    <p class="reg_status"> </p>
+                    {% endif %}
+                    <button class="form_auth_button" type="submit" name="form_auth_submit">Регистрация</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
